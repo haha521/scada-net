@@ -33,32 +33,28 @@ public class ChannelFactory {
                 NettyChannel nettyChannel = nettyChannelGroup.getChannel(code);
                 if(nettyChannel != null){
                     if(connectType == ConnectType.TCP_CLIENT){
-                        if(!host.equals(nettyChannel.getHost()) || port != nettyChannel.getPort()){
-                            NettyTcpClient nettyTcpClient = (NettyTcpClient) nettyNetwork;
-                            nettyChannel.getChannel().close().sync();
-                            nettyChannelGroup.removeChannel(code);
-                            Channel myChannel = nettyTcpClient.connect(host,port,code);
-                            NettyChannel myNettyChannel = new NettyChannel();
-                            myNettyChannel.setChannel(myChannel);
-                            myNettyChannel.setHost(host);
-                            myNettyChannel.setPort(port);
-                            myNettyChannel.setConnectType(connectType);
-                            nettyChannelGroup.addChannel(code,myNettyChannel);
-                        }
+                        NettyTcpClient nettyTcpClient = (NettyTcpClient) nettyNetwork;
+                        nettyChannel.getChannel().close().sync();
+                        nettyChannelGroup.removeChannel(code);
+                        Channel myChannel = nettyTcpClient.connect(host,port,code);
+                        NettyChannel myNettyChannel = new NettyChannel();
+                        myNettyChannel.setChannel(myChannel);
+                        myNettyChannel.setHost(host);
+                        myNettyChannel.setPort(port);
+                        myNettyChannel.setConnectType(connectType);
+                        nettyChannelGroup.addChannel(code,myNettyChannel);
                     }
                     if(connectType == ConnectType.UDP_CLIENT){
-                        if(!host.equals(nettyChannel.getHost()) || port != nettyChannel.getPort()){
-                            NettyUdpClient nettyUdpClient = (NettyUdpClient) nettyNetwork;
-                            nettyChannel.getChannel().close().sync();
-                            nettyChannelGroup.removeChannel(code);
-                            Channel myChannel = nettyUdpClient.bind(code);
-                            NettyChannel myNettyChannel = new NettyChannel();
-                            myNettyChannel.setChannel(myChannel);
-                            myNettyChannel.setHost(host);
-                            myNettyChannel.setPort(port);
-                            myNettyChannel.setConnectType(connectType);
-                            nettyChannelGroup.addChannel(code,myNettyChannel);
-                        }
+                        NettyUdpClient nettyUdpClient = (NettyUdpClient) nettyNetwork;
+                        nettyChannel.getChannel().close().sync();
+                        nettyChannelGroup.removeChannel(code);
+                        Channel myChannel = nettyUdpClient.bind(code);
+                        NettyChannel myNettyChannel = new NettyChannel();
+                        myNettyChannel.setChannel(myChannel);
+                        myNettyChannel.setHost(host);
+                        myNettyChannel.setPort(port);
+                        myNettyChannel.setConnectType(connectType);
+                        nettyChannelGroup.addChannel(code,myNettyChannel);
                     }
                     state = true;
                     Result result = new Result(MessageType.CONNECT,code,port,host,null);
