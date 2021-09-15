@@ -1,6 +1,6 @@
 package com.firstarr.net.io;
 
-public class MyNettyException extends RuntimeException{
+public class MyNettyException extends Exception{
 
     public MyNettyException() {
     }

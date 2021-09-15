@@ -23,7 +23,7 @@ public class ChannelFactory {
     public AbstractChannel getInstance(String code, String host, int port, ConnectType connectType, IChannelListener channelListener){
         AbstractChannel channel = new AbstractChannel(code,connectType,port,host,channelListener) {
             @Override
-            public void connect() throws InterruptedException {
+            public void connect() throws InterruptedException, MyNettyException {
                 if(!active){
                     throw new MyNettyException("通道已被重置！");
                 }
@@ -89,7 +89,7 @@ public class ChannelFactory {
             }
 
             @Override
-            public void close() throws InterruptedException {
+            public void close() throws InterruptedException, MyNettyException {
                 if(!active){
                     throw new MyNettyException("通道已被重置！");
                 }
@@ -116,7 +116,7 @@ public class ChannelFactory {
             }
 
             @Override
-            public void write(byte[] bytes) {
+            public void write(byte[] bytes) throws MyNettyException {
                 if(!active){
                     throw new MyNettyException("通道已被重置！");
                 }

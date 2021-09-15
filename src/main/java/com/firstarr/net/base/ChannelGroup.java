@@ -1,5 +1,7 @@
 package com.firstarr.net.base;
 
+import com.firstarr.net.io.MyNettyException;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +22,7 @@ public class ChannelGroup {
             if(abstractChannel.isState() && (channel.getConnectType() == ConnectType.TCP_CLIENT || channel.getConnectType() == ConnectType.UDP_CLIENT)){
                 try {
                     abstractChannel.close();
-                } catch (InterruptedException e) {
+                } catch (InterruptedException | MyNettyException e) {
                     e.printStackTrace();
                 }
                 long start = new Date().getTime();
