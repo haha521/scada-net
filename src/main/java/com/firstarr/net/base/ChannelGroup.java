@@ -57,7 +57,7 @@ public class ChannelGroup {
             if(channelListener!=null){
                 switch (result.getMessageType()){
                     case READ:
-                        channelListener.onRead(abstractChannel, result.getByteBuf());
+                        channelListener.onRead(abstractChannel, result.getByteBuf(), result.getOut());
                         break;
                     case CONNECT:
                         abstractChannel.setState(true);

@@ -5,6 +5,8 @@ import com.firstarr.net.base.IChannel;
 import com.firstarr.net.base.Result;
 import io.netty.buffer.ByteBuf;
 
+import java.util.List;
+
 public class NettyNetwork {
 
     private ChannelGroup channelGroup;
@@ -27,8 +29,8 @@ public class NettyNetwork {
         return nettyChannelGroup.getChannel(code);
     }
 
-    public void onMessage(MessageType messageType, String code, int port, String host, ByteBuf byteBuf){
-        Result result = new Result(messageType,code,port,host,byteBuf);
+    public void onMessage(MessageType messageType, String code, int port, String host, ByteBuf byteBuf, List<Object> out){
+        Result result = new Result(messageType,code,port,host,byteBuf,out);
         channelGroup.onMessage(result);
     }
 

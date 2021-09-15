@@ -4,6 +4,8 @@ package com.firstarr.net.base;
 import com.firstarr.net.io.MessageType;
 import io.netty.buffer.ByteBuf;
 
+import java.util.List;
+
 public class Result {
 
     private MessageType messageType;
@@ -16,10 +18,12 @@ public class Result {
 
     private ByteBuf byteBuf;
 
+    private List<Object> out;
+
     public Result() {
     }
 
-    public Result(MessageType messageType, String code, int port, String host, ByteBuf byteBuf) {
+    public Result(MessageType messageType, String code, int port, String host, ByteBuf byteBuf,List<Object> out) {
         this.messageType = messageType;
         this.code = code;
         this.port = port;
@@ -65,5 +69,13 @@ public class Result {
 
     public void setByteBuf(ByteBuf byteBuf) {
         this.byteBuf = byteBuf;
+    }
+
+    public List<Object> getOut() {
+        return out;
+    }
+
+    public void setOut(List<Object> out) {
+        this.out = out;
     }
 }

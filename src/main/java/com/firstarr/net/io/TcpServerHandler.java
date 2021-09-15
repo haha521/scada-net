@@ -28,7 +28,7 @@ public class TcpServerHandler extends ByteToMessageDecoder {
         TcpCode tcpCode = nettyTcpServer.tcpCodeMap.get(channel);
         if(tcpCode.getCode() != null){
             nettyTcpServer.removeChannel(tcpCode.getCode());
-            nettyTcpServer.onMessage(MessageType.CLOSE,tcpCode.getCode(),inetSocketAddress.getPort(),inetSocketAddress.getHostName(),null);
+            nettyTcpServer.onMessage(MessageType.CLOSE,tcpCode.getCode(),inetSocketAddress.getPort(),inetSocketAddress.getHostName(),null,null);
         }
         nettyTcpServer.tcpCodeMap.remove(channel);
     }
@@ -97,7 +97,7 @@ public class TcpServerHandler extends ByteToMessageDecoder {
                     System.out.println("客户端："+code+":认证完成！");
                     tcpCode.setCode(code);
                     tcpCode.setFirst(false);
-                    nettyTcpServer.onMessage(MessageType.CONNECT,code,nettyChannel.getPort(),nettyChannel.getHost(),null);
+                    nettyTcpServer.onMessage(MessageType.CONNECT,code,nettyChannel.getPort(),nettyChannel.getHost(),null,null);
                 }else {
                     if(tcpCode.isOpen()){
                         channelHandlerContext.channel().close();
@@ -113,7 +113,7 @@ public class TcpServerHandler extends ByteToMessageDecoder {
         }else {
             NettyChannel nettyChannel = nettyTcpServer.getChannel(tcpCode.getCode());
             if(nettyChannel != null && nettyChannel.getConnectType() == ConnectType.TCP_SERVER){
-                nettyTcpServer.onMessage(MessageType.READ,tcpCode.getCode(),inetSocketAddress.getPort(),inetSocketAddress.getHostName(),byteBuf);
+                nettyTcpServer.onMessage(MessageType.READ,tcpCode.getCode(),inetSocketAddress.getPort(),inetSocketAddress.getHostName(),byteBuf,list);
             }
         }
     }
