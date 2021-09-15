@@ -29,6 +29,7 @@ public class Result {
         this.port = port;
         this.host = host;
         this.byteBuf = byteBuf;
+        this.out = out;
     }
 
     public MessageType getMessageType() {
