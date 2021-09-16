@@ -7,8 +7,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
 
-import java.util.ArrayList;
-
 public class UdpClientHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
     private NettyUdpClient nettyUdpClient;
@@ -35,7 +33,7 @@ public class UdpClientHandler extends SimpleChannelInboundHandler<DatagramPacket
         String code = nettyUdpClient.udpClientMap.get(channel);
         NettyChannel nettyChannel = nettyUdpClient.getChannel(code);
         if(nettyChannel != null && nettyChannel.getConnectType() == ConnectType.UDP_CLIENT){
-            nettyUdpClient.onMessage(MessageType.READ,code,nettyChannel.getPort(),nettyChannel.getHost(),byteBuf,new ArrayList<>());
+            nettyUdpClient.onMessage(MessageType.READ,code,nettyChannel.getPort(),nettyChannel.getHost(),byteBuf);
         }
     }
 

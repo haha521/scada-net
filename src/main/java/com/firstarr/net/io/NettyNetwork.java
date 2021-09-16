@@ -29,8 +29,8 @@ public class NettyNetwork {
         return nettyChannelGroup.getChannel(code);
     }
 
-    public void onMessage(MessageType messageType, String code, int port, String host, ByteBuf byteBuf, List<Object> out){
-        Result result = new Result(messageType,code,port,host,byteBuf,out);
+    public void onMessage(MessageType messageType, String code, int port, String host, ByteBuf byteBuf){
+        Result result = new Result(messageType,code,port,host,byteBuf);
         channelGroup.onMessage(result);
     }
 

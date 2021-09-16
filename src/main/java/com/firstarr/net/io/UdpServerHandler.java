@@ -10,7 +10,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
 
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
 
 public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
@@ -41,7 +40,7 @@ public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket
                     nettyChannel.setPort(sender.getPort());
                     nettyChannel.setConnectType(ConnectType.UDP_SERVER);
                     if(nettyUdpServer.addChannel(code,nettyChannel)){
-                        nettyUdpServer.onMessage(MessageType.CONNECT,code,sender.getPort(),sender.getHostName(),null,null);
+                        nettyUdpServer.onMessage(MessageType.CONNECT,code,sender.getPort(),sender.getHostName(),null);
                         System.out.println("客户端："+code+":认证完成！");
                     }else {
                         NettyChannel myChannel = nettyUdpServer.getChannel(code);
@@ -59,7 +58,7 @@ public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket
                 String code = ConvertUtils.convertHexToString(ConvertUtils.BinaryToHexString(bytes));
                 NettyChannel nettyChannel = nettyUdpServer.getChannel(code);
                 if(nettyChannel != null && nettyChannel.getConnectType() == ConnectType.UDP_SERVER){
-                    nettyUdpServer.onMessage(MessageType.READ,code,sender.getPort(),sender.getHostName(),content,new ArrayList<>());
+                    nettyUdpServer.onMessage(MessageType.READ,code,sender.getPort(),sender.getHostName(),content);
                 }
             }else {
                 int length = content.readableBytes();

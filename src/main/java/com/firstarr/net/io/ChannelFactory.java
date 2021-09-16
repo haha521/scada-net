@@ -57,7 +57,7 @@ public class ChannelFactory {
                         nettyChannelGroup.addChannel(code,myNettyChannel);
                     }
                     state = true;
-                    Result result = new Result(MessageType.CONNECT,code,port,host,null,null);
+                    Result result = new Result(MessageType.CONNECT,code,port,host,null);
                     channelGroup.onMessage(result);
                 }else {
                     if(connectType == ConnectType.TCP_CLIENT){
@@ -70,7 +70,7 @@ public class ChannelFactory {
                         myNettyChannel.setConnectType(connectType);
                         nettyChannelGroup.addChannel(code,myNettyChannel);
                         state = true;
-                        Result result = new Result(MessageType.CONNECT,code,port,host,null,null);
+                        Result result = new Result(MessageType.CONNECT,code,port,host,null);
                         channelGroup.onMessage(result);
                     }else if(connectType == ConnectType.UDP_CLIENT){
                         NettyUdpClient nettyUdpClient = (NettyUdpClient) nettyNetwork;
@@ -82,7 +82,7 @@ public class ChannelFactory {
                         myNettyChannel.setConnectType(connectType);
                         nettyChannelGroup.addChannel(code,myNettyChannel);
                         state = true;
-                        Result result = new Result(MessageType.CONNECT,code,port,host,null,null);
+                        Result result = new Result(MessageType.CONNECT,code,port,host,null);
                         channelGroup.onMessage(result);
                     }
                 }
@@ -104,12 +104,12 @@ public class ChannelFactory {
                         nettyChannel.getChannel().close().sync();
                         nettyChannelGroup.removeChannel(code);
                         state = false;
-                        Result result = new Result(MessageType.CLOSE,code,port,host,null,null);
+                        Result result = new Result(MessageType.CLOSE,code,port,host,null);
                         channelGroup.onMessage(result);
                     }else {
                         nettyChannelGroup.removeChannel(code);
                         state = false;
-                        Result result = new Result(MessageType.CLOSE,code,port,host,null,null);
+                        Result result = new Result(MessageType.CLOSE,code,port,host,null);
                         channelGroup.onMessage(result);
                     }
                 }

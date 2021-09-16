@@ -30,7 +30,7 @@ public class TcpClientHandler extends ByteToMessageDecoder {
             NettyChannel nettyChannel = nettyTcpClient.getChannel(code);
             if(nettyChannel != null){
                 nettyTcpClient.removeChannel(code);
-                nettyTcpClient.onMessage(MessageType.CLOSE,code,nettyChannel.getPort(),nettyChannel.getHost(),null,null);
+                nettyTcpClient.onMessage(MessageType.CLOSE,code,nettyChannel.getPort(),nettyChannel.getHost(),null);
             }
         }
         nettyTcpClient.tcpClientMap.remove(ctx.channel());
@@ -41,7 +41,7 @@ public class TcpClientHandler extends ByteToMessageDecoder {
         String code = nettyTcpClient.tcpClientMap.get(ctx.channel());
         NettyChannel nettyChannel = nettyTcpClient.getChannel(code);
         if(nettyChannel != null && nettyChannel.getConnectType() == ConnectType.TCP_CLIENT){
-            nettyTcpClient.onMessage(MessageType.READ,code,nettyChannel.getPort(),nettyChannel.getHost(),in,out);
+            nettyTcpClient.onMessage(MessageType.READ,code,nettyChannel.getPort(),nettyChannel.getHost(),in);
         }
     }
 
